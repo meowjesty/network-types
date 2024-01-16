@@ -3,6 +3,7 @@ use core::mem;
 use crate::bitfield::BitfieldUnit;
 
 /// IP headers, which are present after the Ethernet header.
+#[repr(C)]
 #[derive(Copy, Clone)]
 #[cfg_attr(features = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 pub enum IpHdr {
