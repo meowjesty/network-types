@@ -1,6 +1,6 @@
 use core::{
     mem,
-    net::{Ipv4Addr, Ipv6Addr},
+    net::{IpAddr, Ipv4Addr, Ipv6Addr},
 };
 
 use crate::bitfield::BitfieldUnit;
@@ -14,7 +14,21 @@ pub enum IpHdr {
     V6(Ipv6Hdr),
 }
 
-// #[cfg(feature = "std")]
+impl IpHdr {
+    pub fn src_addr(&self) -> IpAddr {
+        match self {
+            IpHdr::V4(ip) => IpAddr::V4(ip.src_addr()),
+            IpHdr::V6(ip) => IpAddr::V6(ip.src_addr()),
+        }
+    }
+
+    pub fn dst_addr(&self) -> IpAddr {
+        match self {
+            IpHdr::V4(ip) => IpAddr::V4(ip.dst_addr()),
+            IpHdr::V6(ip) => IpAddr::V6(ip.dst_addr()),
+        }
+    }
+}
 
 //// IPv4 header, which is present after the Ethernet header.
 #[repr(C)]
